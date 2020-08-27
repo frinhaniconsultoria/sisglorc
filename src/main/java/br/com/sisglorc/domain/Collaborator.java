@@ -1,9 +1,6 @@
 package br.com.sisglorc.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -19,15 +16,21 @@ public class Collaborator implements Serializable {
     private String cpf;
     private Date dateOfBirth;
 
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    @MapsId
+    private Address address;
+
     public Collaborator(){
     }
 
-    public Collaborator(Integer id, String name, String email, String cpf, Date dateOfBirth) {
+    public Collaborator(Integer id, String name, String email, String cpf, Date dateOfBirth, Address address) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.cpf = cpf;
         this.dateOfBirth = dateOfBirth;
+        this.address = address;
     }
 
     public static long getSerialVersionUID() {
@@ -72,6 +75,14 @@ public class Collaborator implements Serializable {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override
