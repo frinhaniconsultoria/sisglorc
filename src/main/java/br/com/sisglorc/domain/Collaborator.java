@@ -1,10 +1,15 @@
 package br.com.sisglorc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Collaborator implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -14,8 +19,9 @@ public class Collaborator implements Serializable {
     private String name;
     private String email;
     private String cpf;
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "address_id")
     @MapsId
@@ -24,7 +30,7 @@ public class Collaborator implements Serializable {
     public Collaborator(){
     }
 
-    public Collaborator(Integer id, String name, String email, String cpf, Date dateOfBirth, Address address) {
+    public Collaborator(Integer id, String name, String email, String cpf, LocalDate dateOfBirth, Address address) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -69,11 +75,11 @@ public class Collaborator implements Serializable {
         this.cpf = cpf;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
